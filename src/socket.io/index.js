@@ -158,6 +158,7 @@ function deserializePayload(payload) {
 async function onMessage(socket, payload) {
 	const { event, params, callback } = payload;
 	try {
+		// combine if statements to reduce cognitive load
 		if (!event) {
 			return winston.warn('[socket.io] Empty method name');
 		}
@@ -166,7 +167,7 @@ async function onMessage(socket, payload) {
 			const escapedName = validator.escape(typeof event);
 			return callback({ message: `[[error:invalid-event, ${escapedName}]]` });
 		}
-
+		
 		const parts = event.split('.');
 		const namespace = parts[0];
 		const methodToCall = parts.reduce((prev, cur) => {
