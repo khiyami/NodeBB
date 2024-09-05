@@ -168,7 +168,6 @@ async function onMessage(socket, payload) {
 			const escapedName = validator.escape(typeof event);
 			return callback({ message: `[[error:invalid-event, ${escapedName}]]` });
 		}
-		
 		const parts = event.split('.');
 		const namespace = parts[0];
 		const methodToCall = parts.reduce((prev, cur) => {
